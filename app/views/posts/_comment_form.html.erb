@@ -1,0 +1,16 @@
+<h3>Create A Comment:</h3>
+<%= form_for comment do |f| %>
+  <%= f.hidden_field :post_id, value: post.id %>
+
+  <h3><%= f.label :content %></h3>
+  <%= f.text_field :content %><br/>
+
+  <%= f.collection_select :user_id, User.all, :id, :username, {include_blank: ''} %><br/>
+
+  <%= f.fields_for :user, comment.build_user do |user_form| %>
+    <%= user_form.label :username %>
+    <%= user_form.text_field :username %><br/>
+  <% end %><br/>
+
+  <%= f.submit %>
+<% end %>
